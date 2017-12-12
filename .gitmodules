@@ -1,0 +1,27 @@
+[submodule "deps/yaracpp"]
+	path = deps/yaracpp
+	url = https://github.com/avast-tl/yaracpp
+[submodule "deps/tl-cpputils"]
+	path = deps/tl-cpputils
+	url = https://github.com/avast-tl/tl-cpputils
+[submodule "deps/retdec-config"]
+	path = deps/retdec-config
+	url = https://github.com/avast-tl/retdec-config
+[submodule "deps/elfio"]
+	path = deps/elfio
+	url = https://github.com/avast-tl/elfio
+[submodule "deps/googletest"]
+	path = deps/googletest
+	url = https://github.com/avast-tl/googletest
+[submodule "deps/libdwarf"]
+	path = deps/libdwarf
+	url = https://github.com/avast-tl/libdwarf
+[submodule "deps/llvm"]
+	path = deps/llvm
+	url = https://github.com/avast-tl/llvm
+[submodule "deps/pelib"]
+	path = deps/pelib
+	url = https://github.com/avast-tl/pelib
+[submodule "deps/rapidjson"]
+	path = deps/rapidjson
+	url = https://github.com/avast-tl/rapidjson

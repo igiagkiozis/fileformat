@@ -1,0 +1,12 @@
+
+add_subdirectory(ar-extractor)
+add_subdirectory(ar-extractortool)
+add_subdirectory(cpdetect)
+add_subdirectory(crypto)
+add_subdirectory(fileformat)
+add_subdirectory(fileinfo)
+add_subdirectory(loader)
+add_subdirectory(macho-extractor)
+add_subdirectory(macho-extractortool)
+add_subdirectory(unpacker)
+add_subdirectory(unpackertool)
