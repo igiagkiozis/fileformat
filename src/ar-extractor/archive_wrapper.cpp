@@ -227,7 +227,7 @@ bool ArchiveWrapper::getJsonList(
 			Value object(kObjectType);
 			object.AddMember("name", Value(outName.c_str(), allocator).Move(), allocator);
 			if (numbers) {
-				object.AddMember("index", counter++, allocator);
+				object.AddMember("index", (uint64_t) counter++, allocator);
 			}
 			objects.PushBack(object, allocator);
 		}
