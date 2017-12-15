@@ -16,10 +16,10 @@ if(NOT TARGET unpackertool)
 	# 3. The libraries that are used in plugins under Windows/macOS are linked to plugins themselves in plugins/*/CMakeLists.txt
 	# 4. The libraries that are used both by core and plugins need to be linked as whole-archive under Linux, and under Windows/macOS like in 1 and 3 simultaneously
 	target_link_libraries(unpackertool cpdetect)
-	if(LINUX)
-		target_link_libraries(unpackertool -rdynamic -Wl,-whole-archive tl-cpputils unpacker loader pelib -Wl,-no-whole-archive dl)
-	elseif(APPLE)
+	if(APPLE)
 		target_link_libraries(unpackertool dl)
+	elseif(UNIX)
+		target_link_libraries(unpackertool -rdynamic -Wl,-whole-archive tl-cpputils unpacker loader pelib -Wl,-no-whole-archive dl)
 	elseif(MSVC)
 		target_link_libraries(unpackertool shlwapi)
 	endif()
