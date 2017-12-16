@@ -19,7 +19,7 @@ add_library(upx SHARED ${UPX_SOURCES})
 target_link_libraries(upx fileformat-headers)
 target_include_directories(upx PUBLIC ${PROJECT_SOURCE_DIR}/src/)
 # Plugin related libraries are linked to the plugin on Windows
-if(MSVC)
+if(MSVC OR APPLE)
 	target_link_libraries(upx tl-cpputils unpacker)
 endif()
 install(TARGETS upx
