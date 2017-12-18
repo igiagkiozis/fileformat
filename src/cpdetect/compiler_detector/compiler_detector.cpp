@@ -71,6 +71,10 @@ bool compareForSort(const DetectResult &a, const DetectResult &b)
 		{
 			return true;
 		}
+		else if (a.source == DetectionMethod::SIGNATURE && a.agreeCount != a.impCount)
+		{
+			return false;
+		}
 
 		// If both are same compilers with same detection strength
 		if (isShorterPrefixOfCaseInsensitive(a.name, b.name))
