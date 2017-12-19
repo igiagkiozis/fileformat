@@ -83,7 +83,8 @@ enum class ToolType
 	COMPILER,
 	LINKER,
 	INSTALLER,
-	PACKER
+	PACKER,
+	OTHER
 };
 
 /**

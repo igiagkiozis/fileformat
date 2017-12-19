@@ -430,6 +430,9 @@ std::string toolTypeToString(ToolType toolType)
 		case ToolType::LINKER:
 			return "linker";
 
+		case ToolType::OTHER:
+			return "other tool";
+
 		case ToolType::UNKNOWN:
 			/* fall-thru */
 
