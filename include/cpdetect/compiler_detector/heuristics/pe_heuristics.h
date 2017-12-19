@@ -67,6 +67,9 @@ class PeHeuristics : public Heuristics
 		void getRdataHeuristic();
 		void getNullsoftHeuristic();
 		void getManifestHeuristic();
+		void getMewSectionHeuristics();
+		void getNsPackSectionHeuristics();
+		void getPeSectionHeuristics();
 		/// @}
 	protected:
 		/// @name Virtual methods

@@ -1267,6 +1267,301 @@ void PeHeuristics::getManifestHeuristic()
 	}
 }
 
+/**
+ * Try to detect MEW packer
+ */
+void PeHeuristics::getMewSectionHeuristics()
+{
+	auto source = DetectionMethod::SECTION_TABLE_H;
+	auto strength = DetectionStrength::MEDIUM;
+
+	std::string version;
+	if(noOfSections == 2)
+	{
+		if(startsWith(sections[0]->getName(), "MEWF"))
+		{
+			version = "11 SE 1.x";
+		}
+		else if(sections[0]->getName() == ".data" && sections[1]->getName() == ".decode")
+		{
+			version = "11 SE 1.x";
+		}
+	}
+
+	if(!version.empty())
+	{
+		addPacker(source, strength, "MEW", version);
+	}
+}
+
+/**
+ * Try to detect NsPack packer
+ */
+void PeHeuristics::getNsPackSectionHeuristics()
+{
+	auto source = DetectionMethod::SECTION_TABLE_H;
+	auto strength = DetectionStrength::MEDIUM;
+
+	if(noOfSections && (sections[0]->getName() == "nsp0" || sections[0]->getName() == ".nsp0"))
+	{
+		const auto namePrefix = sections[0]->getName().substr(0, sections[0]->getName().length() - 1);
+		std::size_t counter = 0;
+
+		for(std::size_t i = 1; i < noOfSections; ++i)
+		{
+			if(sections[i]->getName() != (namePrefix + numToStr(i)))
+			{
+				if(++counter > 1)
+				{
+					return;
+				}
+			}
+		}
+
+		auto version = sections[0]->getName() == "nsp0" ? "2.x" : "3.x";
+		addPacker(source, strength, "NsPack", version);
+	}
+}
+
+void PeHeuristics::getPeSectionHeuristics()
+{
+	auto source = DetectionMethod::SECTION_TABLE_H;
+	auto strength = DetectionStrength::HIGH;
+
+	if(!noOfSections)
+	{
+		return;
+	}
+
+	// Get often used names
+	const auto firstName = sections[0]->getName();
+	const auto lastName = sections[noOfSections - 1]->getName();
+
+	// Get often used conditional names
+	const auto secondName = noOfSections > 1 ? sections[1]->getName() : "";
+	const auto secondLastName = noOfSections > 2 ? sections[noOfSections - 2]->getName() : "";
+	const auto epName =  toolInfo.entryPointSection ? toolInfo.epSection.getName() : "";
+
+	// Installer detections
+	if(lastName == "_winzip_")
+	{
+		addInstaller(source, strength, "WinZip Self-Extractor");
+	}
+
+	// Other tools
+	if(findSectionName(".mackt") >= 1)
+	{
+		addPacker(source, strength, "ImpREC reconstructed");
+	}
+	if(findSectionName(".winapi") >= 1)
+	{
+		addPacker(source, strength, "API Override tool");
+	}
+
+	// Packer detections
+	if(lastName == ".taz")
+	{
+		addPacker(source, strength, "PESpin");
+	}
+	if(lastName == ".ccg")
+	{
+		addPacker(source, strength, "CCG packer");
+	}
+	if(lastName == ".svkp")
+	{
+		addPacker(source, strength, "SVKProtector");
+	}
+	if(lastName == "PEPACK!!")
+	{
+		addPacker(source, strength, "PE-PACK");
+	}
+	if(lastName == ".WWP32")
+	{
+		addPacker(source, strength, "WWPack32");
+	}
+	if(lastName == "lamecryp")
+	{
+		addPacker(source, strength, "LameCrypt");
+	}
+	if(lastName == ".rmnet")
+	{
+		addPacker(source, strength, "Ramnit");
+	}
+	if(firstName == ".Upack" || firstName == ".ByDwing")
+	{
+		addPacker(source, strength, "Upack");
+	}
+	if(lastName == "yC" || lastName == ".y0da" || lastName == ".yP")
+	{
+		addPacker(source, strength, "yoda's Crypter");
+	}
+	if(findSectionName(".petite") == 1)
+	{
+		addPacker(source, strength, "Petite");
+	}
+	if(findSectionName(".pklstb") == 1)
+	{
+		addPacker(source, strength, "PKLite");
+	}
+	if(findSectionName("hmimys") == 1)
+	{
+		addPacker(source, strength, "hmimys");
+	}
+	if(findSectionName(".securom") == 1)
+	{
+		addPacker(source, strength, "SecuROM");
+	}
+	if(findSectionName(".neolit") == 1 || findSectionName(".neolite") == 1)
+	{
+		addPacker(source, strength, "NeoLite");
+	}
+	if(findSectionName("RCryptor") == 1 || findSectionName(".RCrypt") == 1)
+	{
+		addPacker(source, strength, "RCryptor");
+	}
+	if(findSectionName(".MPRESS1") == 1 && findSectionName(".MPRESS2") == 1)
+	{
+		addPacker(source, strength, "MPRESS");
+	}
+	if(findSectionName(".dyamarC") == 1 && findSectionName(".dyamarD") == 1)
+	{
+		addPacker(source, strength, "DYAMAR");
+	}
+	if(findSectionName("krypton") == 1 && findSectionName("YADO") >= 1)
+	{
+		addPacker(source, strength, "Krypton");
+	}
+	if(findSectionName(".boom") >= 1)
+	{
+		addPacker(source, strength, "The Boomerang");
+	}
+	if(findSectionName("DAStub") >= 1)
+	{
+		addPacker(source, strength, "DAStub Dragon Armor Protector");
+	}
+	if(findSectionName("!EPack") >= 1)
+	{
+		addPacker(source, strength, "EPack");
+	}
+	if(findSectionName(".MaskPE") >= 1)
+	{
+		addPacker(source, strength, "MaskPE");
+	}
+	if(findSectionName(".perplex") >= 1)
+	{
+		addPacker(source, strength, "Perplex PE Protector");
+	}
+	if(findSectionName("ProCrypt") >= 1)
+	{
+		addPacker(source, strength, "ProCrypt");
+	}
+	if(findSectionName(".seau") >= 1)
+	{
+		addPacker(source, strength, "SeauSFX");
+	}
+	if(findSectionName(".spack") >= 1)
+	{
+		addPacker(source, strength, "Simple Pack");
+	}
+	if(findSectionName(".charmve") >= 1 || findSectionName(".pinclie") >= 1)
+	{
+		addPacker(source, strength, "PIN tool");
+	}
+	if(epName == "TheHyper")
+	{
+		addPacker(source, strength, "TheHyper's protector");
+	}
+	if(startsWith(epName, "Themida"))
+	{
+		addPacker(source, strength, "Themida");
+	}
+	if(findSectionName("NFO") == noOfSections)
+	{
+		addPacker(source, strength, "NFO");
+	}
+	if(findSectionName("kkrunchy") == 1 && noOfSections == 1)
+	{
+		addPacker(source, strength, "kkrunchy");
+	}
+	if (noOfSections > 1)
+	{
+		if (lastName == "pebundle" && secondLastName == "pebundle")
+		{
+			addPacker(source, strength, "PEBundle");
+		}
+	}
+	if (noOfSections == 2)
+	{
+		if(firstName == ".packed" && lastName == ".RLPack")
+		{
+			addPacker(source, strength, "RLPack");
+		}
+		if(firstName == ".rsrc" && lastName == "coderpub")
+		{
+			addPacker(source, strength, "DxPack");
+		}
+	}
+	if (noOfSections > 2)
+	{
+		if	(firstName == "UPX0" && secondName == "UPX1")
+		{
+			addPacker(source, strength, "UPX");
+		}
+		if (lastName == ".data" && secondLastName == ".data"
+				&& findSectionName("") == noOfSections - 2)
+		{
+			addPacker(source, strength, "ASProtect");
+		}
+	}
+	if (noOfSections >= 2)
+	{
+		if(findSectionName("BitArts") == noOfSections - 1)
+		{
+			addPacker(source, strength, "Crunch/PE");
+		}
+		if(secondLastName == ".tsustub" && lastName == ".tsuarch")
+		{
+			addPacker(source, strength, "TSULoader");
+		}
+		if(secondLastName == ".gentee")
+		{
+			addPacker(source, strength, "Gentee");
+		}
+	}
+	if(firstName == "pec1" && epName == "pec2" && toolInfo.epSection.getIndex() == 1)
+	{
+		addPacker(source, strength, "PECompact", "1.xx");
+	}
+	if(epName == "ExeS" && toolInfo.epSection.getSizeInFile() == 0xD9F
+			&& startsWith(toolInfo.epBytes, "EB00EB"))
+	{
+		addPacker(source, strength, "EXE Stealth", "2.72 - 2.73");
+	}
+	if(epName == ".aspack")
+	{
+		auto epSecIndex = toolInfo.epSection.getIndex();
+		if (epSecIndex + 1 < noOfSections - 1
+				&& sections[epSecIndex + 1]->getName() == ".adata")
+		{
+			addPacker(source, strength, "ASPack");
+		}
+	}
+
+	std::size_t sameName = 0;
+	if((sameName = findSectionName(".pelock")) && sameName >= noOfSections - 1)
+	{
+		addPacker(source, strength, "PELock", "1.x");
+	}
+	if((sameName = findSectionName("PELOCKnt"))
+			&& (sameName >= noOfSections - 2 || noOfSections < 2))
+	{
+		addPacker(source, strength, "PELock", "NT");
+	}
+
+	getMewSectionHeuristics();
+	getNsPackSectionHeuristics();
+}
+
 void PeHeuristics::getFormatSpecificLanguageHeuristics()
 {
 	getGoHeuristics();
@@ -1308,6 +1603,7 @@ void PeHeuristics::getFormatSpecificCompilerHeuristics()
 	getNullsoftHeuristic();
 	getLinkerVersionHeuristic();
 	getManifestHeuristic();
+	getPeSectionHeuristics();
 }
 
 } // namespace cpdetect
