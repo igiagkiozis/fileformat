@@ -31,7 +31,7 @@ class IntelHexSection
 
 		/// @name Operators
 		/// @{
-		bool operator<(IntelHexSection const &a);
+		bool operator<(IntelHexSection const &a) const;
 		/// @}
 };
 

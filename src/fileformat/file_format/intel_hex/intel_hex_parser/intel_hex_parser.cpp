@@ -32,7 +32,7 @@ IntelHexSection::~IntelHexSection()
 /**
  * operator <
  */
-bool IntelHexSection::operator<(const IntelHexSection &a)
+bool IntelHexSection::operator<(const IntelHexSection &a) const
 {
 	return address < a.address;
 }
