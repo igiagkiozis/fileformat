@@ -66,6 +66,16 @@ bool compareForSort(const DetectResult &a, const DetectResult &b)
 			}
 		}
 
+		// Everything is better than incomplete signature detection
+		if (b.source == DetectionMethod::SIGNATURE && b.agreeCount != b.impCount)
+		{
+			return true;
+		}
+		else if (a.source == DetectionMethod::SIGNATURE && a.agreeCount != a.impCount)
+		{
+			return false;
+		}
+
 		// If both are same compilers with same detection strength
 		if (isShorterPrefixOfCaseInsensitive(a.name, b.name))
 		{
