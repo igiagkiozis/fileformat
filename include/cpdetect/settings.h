@@ -25,6 +25,8 @@ const std::set<std::string> EXTERNAL_DATABASE_SUFFIXES =
 	".yara"
 };
 
+const std::string YARA_RULES_PATH = "../share/fileformat/detection-rules/";
+
 } // namespace cpdetect
 
 #endif

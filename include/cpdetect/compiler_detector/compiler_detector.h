@@ -7,6 +7,7 @@
 #ifndef CPDETECT_COMPILER_DETECTOR_COMPILER_DETECTOR_H
 #define CPDETECT_COMPILER_DETECTOR_COMPILER_DETECTOR_H
 
+#include "tl-cpputils/filesystem_path.h"
 #include "tl-cpputils/non_copyable.h"
 #include "yaracpp/yara_detector/yara_detector.h"
 #include "cpdetect/compiler_detector/heuristics/heuristics.h"
@@ -42,11 +43,13 @@ class CompilerDetector : private tl_cpputils::NonCopyable
 		ReturnCode getAllCompilers();
 		/// @}
 	protected:
+		tl_cpputils::FilesystemPath pathToShared;
+		std::vector<std::string> internalPaths;   ///< internal database of rules
+
 		ToolInformation &toolInfo;                        ///< results - detected tools
 		fileformat::Architecture targetArchitecture;     ///< target architecture of input file
 		Search *search;                                   ///< class for search in signature
 		Heuristics *heuristics;                           ///< class for heuristics detection of used tool
-		const std::vector<const char*> *internalDatabase; ///< internal database of rules
 		std::set<std::string> externalSuffixes;           ///< suffixes for external database files
 	public:
 		CompilerDetector(fileformat::FileFormat &parser, DetectParams &params, ToolInformation &toolInfo);

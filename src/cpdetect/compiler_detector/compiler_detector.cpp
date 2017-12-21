@@ -5,6 +5,7 @@
  */
 
 #include "tl-cpputils/conversion.h"
+#include "tl-cpputils/binary_path.h"
 #include "tl-cpputils/equality.h"
 #include "tl-cpputils/filesystem_path.h"
 #include "tl-cpputils/string.h"
@@ -140,9 +141,8 @@ ToolType metaToTool(const std::string &toolMeta)
  */
 CompilerDetector::CompilerDetector(fileformat::FileFormat &parser, DetectParams &params, ToolInformation &toolInfo) :
 	fileParser(parser), cpParams(params), toolInfo(toolInfo), targetArchitecture(fileParser.getTargetArchitecture()),
-	search(new Search(fileParser)), heuristics(nullptr), internalDatabase(nullptr)
+	search(new Search(fileParser)), heuristics(nullptr), pathToShared(getThisBinaryDirectoryPath())
 {
-
 }
 
 /**
@@ -274,17 +274,12 @@ ReturnCode CompilerDetector::getAllSignatures()
 {
 	YaraDetector yara;
 
-	yara.addRules("import \"pe\"");
-	yara.addRules("import \"elf\"");
-	yara.addRules("import \"macho\"");
-
-	if(cpParams.internal && internalDatabase)
+	// Add internal paths.
+	for(const auto &ruleFile : internalPaths)
 	{
-		for(const auto *rules : *internalDatabase)
-		{
-			yara.addRules(rules);
-		}
+		yara.addRuleFile(ruleFile);
 	}
+
 	if(cpParams.external && getExternalDatabases())
 	{
 		for(const auto &item : externalDatabase)

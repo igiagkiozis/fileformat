@@ -17,7 +17,6 @@ CoffCompiler::CoffCompiler(fileformat::CoffFormat &parser, DetectParams &params,
 {
 	heuristics = new Heuristics(parser, *search, toolInfo);
 	externalSuffixes = EXTERNAL_DATABASE_SUFFIXES;
-	internalDatabase = nullptr;
 }
 
 } // namespace cpdetect
