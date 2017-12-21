@@ -18,10 +18,10 @@ if(NOT TARGET unpackertool)
 	target_link_libraries(unpackertool cpdetect)
 	if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
 		target_link_libraries(unpackertool -rdynamic
-			-Wl,-force-load tl-cpputils
-			-Wl,-force-load unpacker
-			-Wl,-force-load loader
-			-Wl,-force-load pelib
+			-Wl,-force_load tl-cpputils
+			-Wl,-force_load unpacker
+			-Wl,-force_load loader
+			-Wl,-force_load pelib
 			dl)
 	elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 		target_link_libraries(unpackertool -rdynamic -Wl,-whole-archive tl-cpputils unpacker loader pelib -Wl,-no-whole-archive dl)
