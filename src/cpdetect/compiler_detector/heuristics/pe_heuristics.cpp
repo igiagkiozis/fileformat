@@ -932,7 +932,7 @@ void PeHeuristics::getMsvcIntelHeuristics()
 	if(findSectionName(".reloc") == 1)
 	{
 		addCompiler(source, strength, "MSVC");
-		addPriorityLanguage("Visual C++");
+		addPriorityLanguage("C++");
 		return;
 	}
 	else if(findSectionName(".data1") == 1)
@@ -1117,7 +1117,7 @@ void PeHeuristics::getLinkerVersionHeuristic()
 
 		studioVersion = "Visual Studio " + studioVersion;
 		addCompiler(source, strength, "MSVC", msvcVersion, studioVersion);
-		addLanguage("Visual C++");
+		addLanguage("C++");
 	}
 }
 
