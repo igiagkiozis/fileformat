@@ -1323,6 +1323,65 @@ void PeHeuristics::getNsPackSectionHeuristics()
 	}
 }
 
+void PeHeuristics::getSevenZipHeuristics()
+{
+	auto source = DetectionMethod::COMBINED;
+	auto strength = DetectionStrength::HIGH;
+
+	if (!fileParser.getOverlaySize())
+	{
+		return;
+	}
+
+	bool detected = false;
+	std::string magic;
+	if (fileParser.getString(magic, fileParser.getDeclaredFileLength(), 18))
+	{
+		if (magic == ";!@Install@!UTF-8!")
+		{
+			detected = true;
+		}
+	}
+	if (fileParser.getString(magic, fileParser.getDeclaredFileLength(), 6))
+	{
+		if (magic == "7z\xBC\xAF\x27\x1C")
+		{
+			detected = true;
+		}
+	}
+
+	if (detected)
+	{
+		auto resourceTable = peParser.getResourceTable();
+		if (resourceTable)
+		{
+			// See: VS_VERSIONINFO structure documentation
+			auto resource = resourceTable->getResourceWithType(16);
+			if (resource)
+			{
+				std::uint64_t infoL = 0;
+				auto offset =  resource->getOffset();
+				peParser.get2ByteOffset(offset + 2, infoL, Endianness::LITTLE);
+
+				if (infoL)
+				{
+					offset += 0x38; // skip to product version - minor
+					std::uint64_t minV = 0;
+					peParser.get2ByteOffset(offset, minV, Endianness::LITTLE);
+					offset += 0x02; // skip to product version - major
+					std::uint64_t majV = 0;
+					peParser.get2ByteOffset(offset, majV, Endianness::LITTLE);
+
+					std::stringstream version;
+					version << majV << ".";
+					version << std::setfill('0') << std::setw(2) << minV;
+					addInstaller(source, strength, "7-Zip SFX", version.str());
+				}
+			}
+		}
+	}
+}
+
 void PeHeuristics::getPeSectionHeuristics()
 {
 	auto source = DetectionMethod::SECTION_TABLE_H;
@@ -1603,6 +1662,7 @@ void PeHeuristics::getFormatSpecificCompilerHeuristics()
 	getNullsoftHeuristic();
 	getLinkerVersionHeuristic();
 	getManifestHeuristic();
+	getSevenZipHeuristics();
 	getPeSectionHeuristics();
 }
 

@@ -69,6 +69,7 @@ class PeHeuristics : public Heuristics
 		void getManifestHeuristic();
 		void getMewSectionHeuristics();
 		void getNsPackSectionHeuristics();
+		void getSevenZipHeuristics();
 		void getPeSectionHeuristics();
 		/// @}
 	protected:
