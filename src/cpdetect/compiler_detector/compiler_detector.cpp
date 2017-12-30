@@ -23,7 +23,9 @@ namespace
 {
 
 /**
- * Auxiliary function for compilers sort
+ * Auxiliary function for sorting of compilers
+ *
+ * Warning: sort function requires strict weak ordering!
  */
 bool compareForSort(const DetectResult &a, const DetectResult &b)
 {
@@ -68,11 +70,13 @@ bool compareForSort(const DetectResult &a, const DetectResult &b)
 		}
 
 		// Everything is better than incomplete signature detection
-		if (b.source == DetectionMethod::SIGNATURE && b.agreeCount != b.impCount)
+		if (b.source == DetectionMethod::SIGNATURE
+				&& b.agreeCount != b.impCount)
 		{
 			return true;
 		}
-		else if (a.source == DetectionMethod::SIGNATURE && a.agreeCount != a.impCount)
+		else if (a.source == DetectionMethod::SIGNATURE
+				 && a.agreeCount != a.impCount)
 		{
 			return false;
 		}
