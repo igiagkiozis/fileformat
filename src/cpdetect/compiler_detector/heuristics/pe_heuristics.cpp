@@ -1323,6 +1323,9 @@ void PeHeuristics::getNsPackSectionHeuristics()
 	}
 }
 
+/**
+ * Detect 7-Zip SFX
+ */
 void PeHeuristics::getSevenZipHeuristics()
 {
 	auto source = DetectionMethod::COMBINED;
@@ -1382,6 +1385,9 @@ void PeHeuristics::getSevenZipHeuristics()
 	}
 }
 
+/**
+ * Detect tools by specific section names
+ */
 void PeHeuristics::getPeSectionHeuristics()
 {
 	auto source = DetectionMethod::SECTION_TABLE_H;
