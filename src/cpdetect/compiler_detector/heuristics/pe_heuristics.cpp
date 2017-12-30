@@ -1404,7 +1404,7 @@ void PeHeuristics::getPeSectionHeuristics()
 	// Installer detections
 	if(lastName == "_winzip_")
 	{
-		addInstaller(source, strength, "WinZip Self-Extractor");
+		addInstaller(source, strength, "WinZip SFX");
 	}
 
 	// Other tools
