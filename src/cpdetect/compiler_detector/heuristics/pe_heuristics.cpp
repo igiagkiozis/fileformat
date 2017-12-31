@@ -1416,11 +1416,13 @@ void PeHeuristics::getPeSectionHeuristics()
 	// Other tools
 	if(findSectionName(".mackt") >= 1)
 	{
-		addPacker(source, strength, "ImpREC reconstructed");
+		toolInfo.addTool(source, strength, ToolType::OTHER,
+						 "ImpREC reconstructed");
 	}
 	if(findSectionName(".winapi") >= 1)
 	{
-		addPacker(source, strength, "API Override tool");
+		toolInfo.addTool(source, strength, ToolType::OTHER,
+						 "API Override tool");
 	}
 
 	// Packer detections
