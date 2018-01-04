@@ -6,7 +6,7 @@
 	url = https://github.com/avast-tl/tl-cpputils
 [submodule "deps/retdec-config"]
 	path = deps/retdec-config
-	url = https://github.com/avast-tl/retdec-config
+	url = https://github.com/igiagkiozis/retdec-config.git
 [submodule "deps/elfio"]
 	path = deps/elfio
 	url = https://github.com/avast-tl/elfio
@@ -21,7 +21,7 @@
 	url = https://github.com/avast-tl/llvm
 [submodule "deps/pelib"]
 	path = deps/pelib
-	url = https://github.com/avast-tl/pelib
+	url = https://github.com/igiagkiozis/pelib.git
 [submodule "deps/rapidjson"]
 	path = deps/rapidjson
 	url = https://github.com/avast-tl/rapidjson
