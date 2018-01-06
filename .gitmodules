@@ -1,27 +1,27 @@
 [submodule "deps/yaracpp"]
 	path = deps/yaracpp
-	url = https://github.com/avast-tl/yaracpp
+	url = https://github.com/igiagkiozis/yaracpp
 [submodule "deps/tl-cpputils"]
 	path = deps/tl-cpputils
-	url = https://github.com/avast-tl/tl-cpputils
+	url = https://github.com/igiagkiozis/tl-cpputils
 [submodule "deps/retdec-config"]
 	path = deps/retdec-config
-	url = https://github.com/igiagkiozis/retdec-config.git
+	url = https://github.com/igiagkiozis/retdec-config
 [submodule "deps/elfio"]
 	path = deps/elfio
-	url = https://github.com/avast-tl/elfio
+	url = https://github.com/igiagkiozis/elfio
 [submodule "deps/googletest"]
 	path = deps/googletest
-	url = https://github.com/avast-tl/googletest
+	url = https://github.com/igiagkiozis/googletest
 [submodule "deps/libdwarf"]
 	path = deps/libdwarf
-	url = https://github.com/avast-tl/libdwarf
+	url = https://github.com/igiagkiozis/libdwarf
 [submodule "deps/llvm"]
 	path = deps/llvm
-	url = https://github.com/avast-tl/llvm
+	url = https://github.com/igiagkiozis/llvm
 [submodule "deps/pelib"]
 	path = deps/pelib
-	url = https://github.com/igiagkiozis/pelib.git
+	url = https://github.com/igiagkiozis/pelib
 [submodule "deps/rapidjson"]
 	path = deps/rapidjson
-	url = https://github.com/avast-tl/rapidjson
+	url = https://github.com/igiagkiozis/rapidjson
