@@ -1,3 +1,4 @@
+cmake_minimum_required(VERSION 3.9)
 
 set(AR_EXTRACTOR_SOURCES
 	ar_extractor.cpp

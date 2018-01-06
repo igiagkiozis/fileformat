@@ -1,3 +1,4 @@
+cmake_minimum_required(VERSION 3.9)
 
 set(FILEINFO_SOURCES
 	file_detector/coff_detector.cpp

@@ -1,3 +1,4 @@
+cmake_minimum_required(VERSION 3.9)
 
 set(CPDETECT_SOURCES
 	compiler_detector/coff_compiler.cpp

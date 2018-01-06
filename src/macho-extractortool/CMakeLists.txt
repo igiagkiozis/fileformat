@@ -1,3 +1,4 @@
+cmake_minimum_required(VERSION 3.9)
 
 set(MACHO_EXTRACTOR_SOURCES
 	macho_extractor.cpp

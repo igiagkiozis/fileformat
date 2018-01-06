@@ -1,3 +1,4 @@
+cmake_minimum_required(VERSION 3.9)
 
 set(UNPACKER_SOURCES
 	decompression/lzma/lzma_data.cpp
@@ -13,7 +14,7 @@ if(NOT TARGET unpacker)
 
 	add_library(unpacker STATIC ${UNPACKER_SOURCES})
 	target_link_libraries(unpacker loader)
-	target_include_directories(unpacker PUBLIC ${PROJECT_SOURCE_DIR}/include/)
+	target_include_directories(unpacker PUBLIC ${PROJECT_SOURCE_DIR}/deps/fileformat/include/ ../../include/)
 
 	# Disable the min() and max() macros to prevent errors when using e.g.
 	# std::numeric_limits<...>::max()
